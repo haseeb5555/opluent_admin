@@ -2,20 +2,22 @@
  
  import { Toaster, toast } from 'sonner'
 import Card from '@/components/Card'
-import Image from 'next/image'
+
 import {useQuery} from '@tanstack/react-query'
 import axios from 'axios'
 import {HiPencilAlt, HiTrash} from 'react-icons/hi'
 import React from 'react'
 import Link from 'next/link'
-import RemoveButton from '@/components/RemoveButton'
+
 import { Alert } from '@/components/Alert'
-import { Skeleton } from "@/components/ui/skeleton"
 
 
-export default function Home() {
+export default function ProductList() {
+   
+  
+
   const { data, isLoading } = useQuery({
-    queryKey: ['products'],
+    queryKey: ['product'],
     queryFn: async () => {
       const response = await axios.get("http://localhost:3000/api/products");
       return response.data.product; 

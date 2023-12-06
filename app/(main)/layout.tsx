@@ -1,10 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import './globals.css'
+import '../globals.css'
 import type { Metadata } from 'next'
 
 import Link from 'next/link'
 import SideBar from '@/components/Sidebar'
-import { Providers } from './Providers'
+import { Providers } from '../Providers'
+import BottomBar from '@/components/bottom-bar'
 
 
 
@@ -22,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className='light'>
+    <html lang="en" >
       <body> 
     
         <div className="border-b z-50 bg-green-600  w-full ">
@@ -45,16 +46,12 @@ export default function RootLayout({
           
       <div className='w-full pt-12 px-4'>
         <Providers>
-        <div
-          className="bg-[#fc8888] absolute top-[-6rem] -z-10 right-[11rem] h-[41.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem]">
-        </div>
-        <div
-          className="bg-[#9c93ec] absolute top-[-1rem] -z-10 left-[-35rem] h-[41.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2xl:left-[-5rem] ">
-        </div>
+  
         {children}
         </Providers>
         </div>
         </div>
+        <BottomBar/>
       
         
         </body>

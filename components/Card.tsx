@@ -18,8 +18,9 @@ console.log("hahahha")
     <div className="card-body">
       <Image src={ image} alt={name} width={240} height={140} className='object-contain w-[240px] h-[140px]'/>
   
-      <h2 className="card-title">{name}</h2>
-      <p>{quantity}</p>
+      <h2 className="card-title"><span className='text-gray-500 text-[14px]'></span>{name}</h2>
+      <p className=''> <span className='text-gray-500 ml-2'>
+       available </span>{quantity}</p>
       <div className="card-actions justify-start">
         <button className="btn bg-green-500">{price}</button>
       </div>

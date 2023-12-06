@@ -32,7 +32,7 @@ import { HiOutlineTrash } from "react-icons/hi"
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction asChild><RemoveButton id={id}/></AlertDialogAction>
+            <AlertDialogAction ><RemoveButton id={id}/></AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

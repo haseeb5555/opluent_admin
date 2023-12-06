@@ -44,7 +44,7 @@ const formSchema = z.object({
     const { data } = useQuery({
         queryKey: ['product'],
         queryFn: async () => {
-          const response = await axios.get(`http://localhost:3000/api/products/${params.id}`);
+          const response = await axios.get(`/api/products/${params.id}`);
           return response.data.product; 
       }})
     
@@ -59,7 +59,7 @@ const formSchema = z.object({
  const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues:{
-      mewImage:data?.image,newName:data?.name,newQuantity:data?.quantity,newCommodityType:data?.commodityType,newPricerice:data?.price
+      newImage:data?.image,newName:data?.name,newQuantity:data?.quantity,newCommodityType:data?.commodityType,newPrice:data?.price
     }
 
  })
@@ -81,7 +81,7 @@ const formSchema = z.object({
 
 
   try {
-       await fetch(`http://localhost:3000/api/products/${params.id}`,{
+       await fetch(`/api/products/${params.id}`,{
           method:'PUT',headers:{'Content-Type':'application/json'},
           body:JSON.stringify(
           { newImage:values.newImage
@@ -140,7 +140,7 @@ console.log()
               <FormControl>
                 <Input
                 
-                type="file" accept="image/*" onChange={(e)=>handleImage(e,field.onChange)} className="bg-slate-200 rounded-xl text-green-500 !ring-0  ring-white"/>
+                type="file" accept="image/*" onChange={(e)=>handleImage(e,field.onChange)} className=" bg-transparent text-[14px] rounded-3xl"/>
               </FormControl>
             
               <FormMessage />
@@ -153,9 +153,9 @@ console.log()
           name="newName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter title" {...field} type="text"className="bg-slate-200 rounded-xl text-green-500 !ring-0  ring-white" />
+                <Input placeholder="Enter Product Name" {...field} type="text"className=" bg-transparent text-[14px] rounded-3xl  " />
               </FormControl>
              
               <FormMessage />
@@ -168,9 +168,9 @@ console.log()
           name="newQuantity"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel>Quantity</FormLabel>
               <FormControl>
-                <Input placeholder="Enter description" {...field} type="text"className="bg-slate-200 rounded-xl text-green-500 !ring-0  ring-white" />
+                <Input placeholder="Enter Product Quantity" {...field} type="text"className=" bg-transparent text-[14px] rounded-3xl  " />
               </FormControl>
              
               <FormMessage />
@@ -182,9 +182,9 @@ console.log()
           name="newCommodityType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel>Commodity Type</FormLabel>
               <FormControl>
-                <Input placeholder="Enter description" {...field} type="text"className="bg-slate-200 rounded-xl text-green-500 !ring-0  ring-white" />
+                <Input placeholder="Enter Commodity Type" {...field} type="text"className=" bg-transparent text-[14px] rounded-3xl " />
               </FormControl>
              
               <FormMessage />
@@ -196,9 +196,9 @@ console.log()
           name="newPrice"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Price:$/pkr</FormLabel>
+              <FormLabel>Price</FormLabel>
               <FormControl>
-                <Input placeholder="Enter description" {...field} type="text"className="bg-slate-200 rounded-xl text-green-500 !ring-0  ring-white" />
+                <Input placeholder="Enter Price" {...field} type="text"className=" bg-transparent text-[14px] rounded-3xl  " />
               </FormControl>
              
               <FormMessage />

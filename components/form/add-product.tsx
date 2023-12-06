@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation"
 
 import { useUploadThing } from "@/lib/uploadthing"
 import { isBase64Image } from "@/lib/utils"
+import { PriceType } from "../PriceType"
 
 const formSchema = z.object({
     image:z.string(),
@@ -62,7 +63,7 @@ const formSchema = z.object({
 
 
   try {
-       await fetch("http://localhost:3000/api/products",{
+       await fetch("/api/products",{
           method:'POST',headers:{'Content-Type':'application/json'},
           body:JSON.stringify(
           { image:values.image
@@ -79,6 +80,7 @@ const formSchema = z.object({
       form.reset()
   } catch (error) {
       console.log(error) 
+      toast.error("Something went wrong")
   }
 }
 
@@ -105,29 +107,7 @@ const handleImage=(e:ChangeEvent<HTMLInputElement>,fieldChange:(value:string)=>v
 console.log()
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" w-full space-y-8 px-20 ">
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-    
-              </FormLabel>
-              <FormControl>
-                <Input
-                 type="file"
-                 accept="image/*"
-                 onChange={(e)=>handleImage(e,field.onChange)}
-                 className="bg-transparent rounded-3xl text-[14px] text-slate-100 " />
-                 
-              </FormControl>
-            
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-         
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" relative w-full space-y-8 px-20 max-sm:px-8 ">
             <FormField
           control={form.control}
           name="name"
@@ -135,7 +115,7 @@ console.log()
             <FormItem>
               <FormLabel className=" font-bold text-blue-900">Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter title" {...field} type="text"className= "bg-transparent rounded-3xl text-[14px] text-slate-100" />
+                <Input placeholder="Enter title" {...field} type="text"className= "bg-transparent rounded-3xl text-[14px] " />
               </FormControl>
              
               <FormMessage />
@@ -148,9 +128,9 @@ console.log()
           name="quantity"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+          <FormLabel className=" font-bold text-blue-900">Quantity</FormLabel>
               <FormControl>
-                <Input placeholder="Enter description" {...field} type="text"className="bg-transparent rounded-3xl text-[14px] text-slate-100" />
+                <Input placeholder="Enter description" {...field} type="text"className="bg-transparent rounded-3xl text-[14px]" />
               </FormControl>
              
               <FormMessage />
@@ -162,27 +142,46 @@ console.log()
           name="commodityType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+           <FormLabel className=" font-bold text-blue-900">Commidity Type</FormLabel>
               <FormControl>
-                <Input placeholder="Enter description" {...field} type="text"
-                className="bg-transparent rounded-3xl text-[14px] text-slate-100" />
+                <Input placeholder="Enter Type" {...field} type="text"
+                className="bg-transparent rounded-3xl  text-[14px]" />
               </FormControl>
              
               <FormMessage />
             </FormItem>
           )}
         />
-              <FormField
+         <FormField
           control={form.control}
           name="price"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Price:$/pkr</FormLabel>
+           <FormLabel className=" font-bold text-blue-900">Price</FormLabel>
               <FormControl>
-                <Input placeholder="Enter description" {...field} type="text" 
-                className="bg-transparent rounded-3xl text-[14px] text-slate-100" />
+                <Input placeholder="Enter Price" {...field} type="text" 
+                className="bg-transparent rounded-3xl text-[14px] pl-8" />
               </FormControl>
              
+              <FormMessage />
+              <PriceType/>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                 type="file"
+                 accept="image/*"
+                 onChange={(e)=>handleImage(e,field.onChange)}
+                 className="bg-transparent rounded-3xl text-[14px]  " />
+                 
+              </FormControl>
+            
               <FormMessage />
             </FormItem>
           )}
