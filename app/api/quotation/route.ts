@@ -6,19 +6,20 @@ import { transporter } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 import fs from 'fs';
 const carbone = require('carbone');
+const path = require('path');
 
-
+const templatesDir = path.join(process.cwd(), 'templates');
 
 export async function POST(req: NextRequest) {
     const { date, buyerName, address, contact, quotationItems }: IQuotation = await req.json();
 
     const quotationPdf = async () => {
-        carbone.render("./templates/Quotation.docx", { date, buyerName, address, contact, quotationItems }, function (err: any, result: any) {
+        carbone.render(path.join(templatesDir, 'Quotation.docx'), { date, buyerName, address, contact, quotationItems }, function (err: any, result: any) {
             if (err) {
                 return console.log(err);
             }
 
-            fs.writeFileSync('./templates/output/newDoc.docx', result);
+            fs.writeFileSync(path.join(templatesDir, 'output', 'newDoc.docx'), result);
 
             
             const mailOptions = {
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
                 attachments: [
                     {
                         filename: 'newDoc.docx',
-                        path: './templates/output/newDoc.docx'
+                        path: path.join(templatesDir, 'output', 'newDoc.docx')
                     }
                 ]
             };
@@ -43,6 +44,8 @@ export async function POST(req: NextRequest) {
             });
         });
     }
+   
+    
 
     await quotationPdf();
     await connectToDB();
