@@ -13,16 +13,22 @@ const templatesDir = path.join(process.cwd(), 'templates');
 export async function POST(req: NextRequest) {
     const { date, buyerName, address, contact, quotationItems }: IQuotation = await req.json();
 
-    const quotationPdf = async () => {
-        carbone.render(path.join(templatesDir, 'Quotation.docx'), { date, buyerName, address, contact, quotationItems }, function (err: any, result: any) {
+ 
+       const quotationPdf = async () =>{ 
+        await carbone.render(path.join(templatesDir, 'Quotation.docx'), { date, buyerName, address, contact, quotationItems }, function (err: any, result: any) {
             if (err) {
                 return console.log(err);
             }
 
             fs.writeFileSync(path.join(templatesDir, 'output', 'newDoc.docx'), result);
 
-            
-            const mailOptions = {
+         
+        });
+
+        }   
+        
+        await quotationPdf();
+        const mailOptions = {
                 from: 'haseebmoon666@gmail.com',
                 to: 'mh5510737@gmail.com',
                 subject: 'Quotation PDF',
@@ -33,7 +39,10 @@ export async function POST(req: NextRequest) {
                         path: path.join(templatesDir, 'output', 'newDoc.docx')
                     }
                 ]
-            };
+            }
+
+
+            await new Promise((resolve, reject) => {
 
             transporter.sendMail(mailOptions, function (error: any, info: any) {
                 if (error) {
@@ -43,11 +52,11 @@ export async function POST(req: NextRequest) {
                 }
             });
         });
-    }
+
    
     
 
-    await quotationPdf();
+
     await connectToDB();
     await Quotation.create({
         date,
